@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!--node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
+      args="-x $(arg x)
+            -y $(arg y)
+            -z $(arg z)
+            -Y $(arg yaw)
+            -unpause
+            -urdf
+            -param robot_description
+            -model $(arg robot_namespace)"/-->
+ 
+
+  <arg name="laser_enabled" default="true"/>
+  <arg name="kinect_enabled" default="true"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="verbose" value="true"/>
+    <arg name="world_name" value="$(find husky_ur3_gazebo)/worlds/modified_warehouse.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+ <!--include file="$(find husky_gripper_moveit)/launch/ur3_planning_execution.launch"/-->
+  <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+    <!--arg name="robot_namespace" value="robot1"/-->
+    <!--param name="tf_prefix" value="robot1_tf"/-->
+    <!--param name="robot_description" command="$(find xacro)/xacro $(find husky_ur3_gazebo)/urdf/husky.urdf.xacro" /-->
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="x" value="3.0"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.256588"/>
+    <arg name="robot_namespace" value="husky1"/>
+  </include>
+
+  <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="x" value="0.0"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.256588"/>
+    <ar name="robot_namespace" value="husky2"/>
+  </include>
+  
+  <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="x" value="1.0"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.256588"/>
+    <ar name="robot_namespace" value="husky3"/>
+  </include>
+  
+  <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="x" value="2.0"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.256588"/>
+    <ar name="robot_namespace" value="husky4"/>
+  </include>
+  
+  
+  <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+    <arg name="x" value="4.0"/>
+    <arg name="y" value="0.0"/>
+    <arg name="z" value="0.256588"/>
+    <ar name="robot_namespace" value="husky5"/>
+  </include>
+
+
+  <!--BEGIN ROBOT 1-->
+  <!--group ns="robot1">
+    <param name="tf_prefix" value="robot1_tf" />
+    <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+     <arg name="x" default="0.0"/>
+     <arg name="y" default="0.0"/>
+     <arg name="z" default="0.0"/>
+    </include>
+  </group-->
+
+  <!-- BEGIN ROBOT 2-->
+  <!--group ns="robot2">
+    <param name="tf_prefix" value="robot2_tf" />   
+    <include file="$(find husky_ur3_gazebo)/launch/spawn_husky.launch">
+     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>
+     <arg name="x" default="0.0"/>
+     <arg name="y" default="0.0"/>
+     <arg name="z" default="0.0"/>
+   </include>
+  </group-->
+  <!--node pkg="prm_code" name="arm_control" type="arm_control.py" output="screen"/--> 
+
+</launch>
